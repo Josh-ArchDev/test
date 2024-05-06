@@ -1,13 +1,34 @@
-# Function to log messages to a file
-function LogMessage {
+$LogFilePath = "C:\ImageBuild\mapazcopy.log"
+
+
+# Function to log messages to console and file
+function Write-Log
+{
     param (
         [string]$Message
     )
-    $LogFile = "C:\ImageBuild\mapazcopy_log.txt"
-    $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    $LogEntry = "$Timestamp - $Message"
-    Add-content -Path $LogFile -Value $LogEntry
+
+    try
+    {
+        # Check if the log file directory exists, create it if not
+        $logDirectory = Split-Path -Path $LogFilePath
+        if (-Not (Test-Path -Path $logDirectory))
+        {
+            New-Item -Path $logDirectory -ItemType Directory
+            Write-Host "Log directory created at: $logDirectory"
+        }
+        # Log message to console and file
+        Write-Host $Message
+        Add-Content -Path $LogFilePath -Value "$(Get-Date) - $Message"
+
+    }
+    catch
+    {
+        write-host "Having issues creating or adding information to the logfile at $LogFilePath"
+    }
 }
+
+
 
 # Function to handle errors
 function HandleError {
@@ -15,7 +36,7 @@ function HandleError {
         [string]$ErrorMessage
     )
     Write-Host "Error: $ErrorMessage"
-    LogMessage "Error: $ErrorMessage"
+    Write-Log "Error: $ErrorMessage"
     exit 1
 }
 
@@ -23,7 +44,7 @@ function HandleError {
 if (-not (Test-Path -Path "C:\ImageBuild")) {
     try {
         New-Item -Path "C:\ImageBuild" -ItemType Directory -ErrorAction Stop
-        LogMessage "Created C:\ImageBuild directory"
+        Write-Log "Created C:\ImageBuild directory"
     } catch {
         HandleError "Failed to create C:\ImageBuild directory"
     }
@@ -32,7 +53,7 @@ if (-not (Test-Path -Path "C:\ImageBuild")) {
 # Map network drive to \\10.229.208.24\img-build as Z: drive
 try {
     New-PSDrive -Name "Z" -PSProvider FileSystem -Root "\\10.229.208.24\img-build" -ErrorAction Stop | Out-Null
-    LogMessage "Mapped network drive to Z: drive"
+    Write-Log "Mapped network drive to Z: drive"
 } catch {
     HandleError "Failed to map network drive"
 }
@@ -41,10 +62,10 @@ try {
 
 try {
     Copy-Item -Path "Z:\genpactapps\*" -Destination "C:\ImageBuild" -Recurse -ErrorAction Stop
-    LogMessage "Copied contents from network share to C:\ImageBuild"
+    Write-Log "Copied contents from network share to C:\ImageBuild"
 } catch {
     HandleError "Failed to copy contents from network share to C:\ImageBuild"
 }
 
 Write-Host "Script execution completed successfully!"
-LogMessage "Script execution completed successfully!"
+Write-Log "Script execution completed successfully!"
