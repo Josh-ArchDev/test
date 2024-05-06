@@ -1,4 +1,4 @@
-$LogFilePath = "C:\ImageBuild\mapazcopy.log"
+$LogFilePath = "C:\ImageBuild\extractinstalls.log"
 
 
 # Function to log messages to console and file
