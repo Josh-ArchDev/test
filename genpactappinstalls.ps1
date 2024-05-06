@@ -1,19 +1,33 @@
-# Set logging 
- 
-$logFile = "c:\ImageBuild\" + (get-date -format 'yyyyMMdd') + '_softwareinstall.log'
-if (!(Test-Path $logFile)) {
-    New-Item -ItemType File -Path $logFile
-    }
+$LogFilePath = "C:\ImageBuild\extractinstalls.log"
 
-function Write-Log {
- 
-    Param($message)
- 
-    Write-Output "$(get-date -format 'yyyyMMdd HH:mm:ss') $message" | Out-File -Encoding utf8 $logFile -Append
- 
+
+# Function to log messages to console and file
+function Write-Log
+{
+    param (
+        [string]$Message
+    )
+
+    try
+    {
+        # Check if the log file directory exists, create it if not
+        $logDirectory = Split-Path -Path $LogFilePath
+        if (-Not (Test-Path -Path $logDirectory))
+        {
+            New-Item -Path $logDirectory -ItemType Directory
+            Write-Host "Log directory created at: $logDirectory"
+        }
+        # Log message to console and file
+        Write-Host $Message
+        Add-Content -Path $LogFilePath -Value "$(Get-Date) - $Message"
+
+    }
+    catch
+    {
+        write-host "Having issues creating or adding information to the logfile at $LogFilePath"
+    }
 }
 
- 
 #ForcePoint
 
 try {
