@@ -24,7 +24,8 @@ function Write-Log
     }
     catch
     {
-        write-host "Having issues creating or adding information to the logfile at $LogFilePath"
+        write-host "Having issues creating or adding information to the logfile at $LogFilePath $_.Exception.Message"
+        Exit 1
     }
 }
 
@@ -47,6 +48,7 @@ if (-not (Test-Path -Path "C:\ImageBuild")) {
         Write-Log "Created C:\ImageBuild directory"
     } catch {
         HandleError "Failed to create C:\ImageBuild directory"
+        Exit 1
     }
 }
 
@@ -55,7 +57,8 @@ try {
     New-PSDrive -Name "Z" -PSProvider FileSystem -Root "\\10.229.208.24\img-build" -ErrorAction Stop | Out-Null
     Write-Log "Mapped network drive to Z: drive"
 } catch {
-    HandleError "Failed to map network drive"
+    HandleError "Failed to map network drive $_.Exception.Message"
+    Exit 2
 }
 
 # Copy contents of network share to C:\ImageBuild directory
@@ -64,7 +67,8 @@ try {
     Copy-Item -Path "Z:\genpactapps\*" -Destination "C:\ImageBuild" -Recurse -ErrorAction Stop
     Write-Log "Copied contents from network share to C:\ImageBuild"
 } catch {
-    HandleError "Failed to copy contents from network share to C:\ImageBuild"
+    HandleError "Failed to copy contents from network share to C:\ImageBuild $_.Exception.Message"
+    Exit 3
 }
 
 Write-Host "Script execution completed successfully!"

@@ -44,7 +44,7 @@ try {
     Get-ChildItem -Path "C:\ImageBuild" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
     Write-Log "Deleted all contents within C:\ImageBuild directory"
 } catch {
-    HandleError "Failed to delete contents within C:\ImageBuild directory: $_"
+    HandleError "Failed to delete contents within C:\ImageBuild directory: $_.Exception.Message"
 }
 
 # Disconnect Z: drive
@@ -52,7 +52,7 @@ try {
     Remove-PSDrive -Name "Z" -ErrorAction Stop
     Write-Log "Disconnected Z: drive"
 } catch {
-    HandleError "Failed to disconnect Z: drive: $_"
+    HandleError "Failed to disconnect Z: drive: $_.Exception.Message"
 }
 
 Write-Host "Script execution completed successfully!"

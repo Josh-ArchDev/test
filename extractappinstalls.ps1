@@ -51,7 +51,7 @@ $destination = "C:\ImageBuild"
 try {
     $zipFiles = Get-ChildItem -Path $source -Filter *.zip -ErrorAction Stop
 } catch {
-    HandleError "Failed to get list of zip files: $_"
+    HandleError "Failed to get list of zip files: $_.Exception.Message"
     exit 1
 }
 
@@ -68,7 +68,7 @@ foreach ($zipFile in $zipFiles) {
         Write-Log "Extracted $($zipFile.Name) to $destination"
     } catch {
         # Log error message if extraction fails
-        HandleError "Failed to extract $($zipFile.Name): $_"
+        HandleError "Failed to extract $($zipFile.Name): $_.Exception.Message"
     }
 }
 
