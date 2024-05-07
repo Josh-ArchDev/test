@@ -1,4 +1,4 @@
-$LogFilePath = "C:\ImageBuild\extractinstalls.log"
+$LogFilePath = "C:\ImageBuild\genpactappinstalls.log"
 
 
 # Function to log messages to console and file
