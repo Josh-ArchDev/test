@@ -47,7 +47,7 @@ if (-not (Test-Path -Path "C:\ImageBuild")) {
         New-Item -Path "C:\ImageBuild" -ItemType Directory -ErrorAction Stop
         Write-Log "Created C:\ImageBuild directory"
     } catch {
-        HandleError "Failed to create C:\ImageBuild directory"
+        HandleError "Failed to create C:\ImageBuild directory $_.Exception.Message"
         Exit 1
     }
 }
