@@ -30,30 +30,23 @@ function Write-Log
 
 
 
-# Function to handle errors
-function HandleError {
-    param (
-        [string]$ErrorMessage
-    )
-    Write-Host "Error: $ErrorMessage"
-    Write-Log "Error: $ErrorMessage"
-}
+
 
 # Delete all contents within C:\ImageBuild directory
 try {
     Get-ChildItem -Path "C:\ImageBuild" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
     Write-Log "Deleted all contents within C:\ImageBuild directory"
 } catch {
-    HandleError "Failed to delete contents within C:\ImageBuild directory: $_.Exception.Message"
+    Write-Log "Failed to delete contents within C:\ImageBuild directory: $_.Exception.Message"
 }
 
-# Disconnect Z: drive
+<#  Disconnect Z: drive
 try {
     Remove-PSDrive -Name "Z" -ErrorAction Stop
     Write-Log "Disconnected Z: drive"
 } catch {
-    HandleError "Failed to disconnect Z: drive: $_.Exception.Message"
+    Write-Log "Failed to disconnect Z: drive: $_.Exception.Message"
 }
+ #>
 
-Write-Host "Script execution completed successfully!"
 Write-Log "Script execution completed successfully!"
