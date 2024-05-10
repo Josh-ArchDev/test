@@ -1,6 +1,6 @@
 #######################################################################################################################
 ###                                                                                                                 ###
-###    Script Name: ccappinstalls.ps1                                                                          ###
+###    Script Name: ccappinstalls.ps1                                                                               ###
 ###    Script Function: This script is meant to be run within a Custom Image Template deployment within Azure       ###
 ###                     Virtual Desktop. This script installs the required software for the Genpact EN Use case     ###
 ###                     within Walmart.                                                                             ### 

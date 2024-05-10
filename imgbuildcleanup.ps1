@@ -1,8 +1,19 @@
-$LogFilePath = "C:\ImageBuild\imgbuildcleanup.log"
+#######################################################################################################################
+###                                                                                                                 ###
+###    Script Name: imgbuildcleanup.ps1                                                                             ###
+###    Script Function: This script is designed to cleanup the C:\ImageBuild directory once the custom software     ###
+###                     installs has completed. This makes sure that AVD OS disks are as small as possible.         ### 
+###                                                                                                                 ###
+###                                                                                                                 ###
+###    Script Usage: This template script does not require any parameters at this time, but if required they can    ###
+###                  be added and called as part of the custom image template process.                              ###
+###                                                                                                                 ###        
+###    Script Version: 1.0                                                                                          ###
+###                                                                                                                 ###
+#######################################################################################################################
 
-
-# Function to log messages to console and file
-function Write-Log
+# Function to write logs
+Function Write-Log
 {
     param (
         [string]$Message
@@ -30,13 +41,18 @@ function Write-Log
 
 
 
+$LogFilePath = "C:\Windows\Temp\imgbuildcleanup.log"
+
 
 
 # Delete all contents within C:\ImageBuild directory
-try {
+try 
+{
     Get-ChildItem -Path "C:\ImageBuild" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
     Write-Log "Deleted all contents within C:\ImageBuild directory"
-} catch {
+} 
+catch 
+{
     Write-Log "Failed to delete contents within C:\ImageBuild directory: $_.Exception.Message"
 }
 
