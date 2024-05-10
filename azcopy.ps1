@@ -11,6 +11,8 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
+# Logifle Path
+$LogFilePath = "C:\ImageBuild\azcopy.log"
 # Function to write logs
 Function Write-Log
 {

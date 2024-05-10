@@ -15,6 +15,8 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
+# Set the Log File Path
+$LogFilePath = "C:\ImageBuild\download.log"
 
 # Function to write logs
 Function Write-Log

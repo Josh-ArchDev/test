@@ -18,7 +18,7 @@
 
 # Set logging 
  
-$LogFilePath = "C:\ImageBuild\genpactappinstalls.log"
+$LogFilePath = "C:\ImageBuild\vstdappinstalls.log"
 function Write-Log
 {
 	param (
