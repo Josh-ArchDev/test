@@ -12,6 +12,10 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
+
+# Set Log File Path
+$LogFilePath = "C:\Windows\Temp\imgbuildcleanup.log"
+
 # Function to write logs
 Function Write-Log
 {
@@ -41,7 +45,6 @@ Function Write-Log
 
 
 
-$LogFilePath = "C:\Windows\Temp\imgbuildcleanup.log"
 
 
 
