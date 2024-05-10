@@ -59,7 +59,7 @@ try {
 foreach ($zipFile in $zipFiles) {
     try {
         # Get the name of the zip file without extension
-        $zipFileName = [System.IO.Path]::GetFileNameWithoutExtension($zipFile.FullName)
+        #$zipFileName = [System.IO.Path]::GetFileNameWithoutExtension($zipFile.FullName)
         
         # Extract the contents of the zip file to the destination directory
         Expand-Archive -Path $zipFile.FullName -DestinationPath $destination -ErrorAction Stop

@@ -1,7 +1,22 @@
-# Azure Image Builder Portal Integration Inline Commands
-# Inline command that uses AZCopy to download the archive file and extract to the ImageBuilder directory
-# Use the SAS URL for the <ArchiveSource>
+#######################################################################################################################
+###                                                                                                                 ###
+###    Script Name: azcopy.ps1                                                                                      ###
+###    Script Function: This script is meant to download and extract contents of zip files from a Blob Storage      ###
+###                     Account using AZCopy.exe that is downloaded and extracted in the azcopy.ps1 script.         ### 
+###                     This script is used as part of the Custom Image Template deployments for AVD. Once all the  ###
+###                     zip files have been downloaded from ther Blob Store the contents will then be extracted to  ###
+###                     install software for the Custom Image build.                                                ### 
+###                                                                                                                 ###
+###                                                                                                                 ###
+###    Script Usage: This script does not require any parameters at this time, but if required they can             ###
+###                  be added and called as part of the custom image template process.                              ###
+###                                                                                                                 ###        
+###    Script Version: 1.0                                                                                          ###
+###                                                                                                                 ###
+#######################################################################################################################
 
+
+# Function to write logs
 Function Write-Log
 {
     param (
@@ -66,7 +81,7 @@ try {
 foreach ($zipFile in $zipFiles) {
     try {
         # Get the name of the zip file without extension
-        $zipFileName = [System.IO.Path]::GetFileNameWithoutExtension($zipFile.FullName)
+        #$zipFileName = [System.IO.Path]::GetFileNameWithoutExtension($zipFile.FullName)
         
         # Extract the contents of the zip file to the destination directory
         Expand-Archive -Path $zipFile.FullName -DestinationPath $destination -ErrorAction Stop
