@@ -334,7 +334,7 @@ catch
 
 
 #7Zip
-
+<# 
 try 
 {
     Write-Log "Starting the install of the 7Zip Package"
@@ -349,7 +349,7 @@ catch
    	write-log "Error installing 7-Zip: $ErrorMessage"
     Exit 42
 }
-
+ #>
 #ZoomVDI_5.16.24420
 
 try 
