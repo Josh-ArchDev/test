@@ -416,7 +416,7 @@ catch
 }
 
 #JDA_Category_Management_ver2017.2k
-
+<# 
 try 
 {
     Write-Log "Starting the install of the JDA Category Management Package"	
@@ -431,7 +431,7 @@ catch
    	write-log "Error installing JDA_Category_Management_ver2017.2k: $ErrorMessage"
     Exit 42
 }
-
+ #>
 #Informix_410a_ver4.10a
 
 try 
