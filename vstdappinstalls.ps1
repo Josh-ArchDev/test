@@ -236,7 +236,7 @@ catch
 }
 #Notepad++ v7.7.1
 
-try 
+<# try 
 {
     Write-Log "Starting the install of the Notepad++ Package"
     Start-Process -FilePath "C:\ImageBuild\Notepad++_ver``[7.7.1``]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
@@ -250,7 +250,7 @@ catch
     Exit 42
 }
 
-
+ #>
 try 
 {
     Write-Log "Starting the install of the .Net 5.0 Package"
@@ -282,7 +282,7 @@ try {
 
 	}
 
-#PowerBI
+<# #PowerBI
 
 try 
 {
@@ -297,7 +297,7 @@ catch
    	write-log "Error installing SSMS: $ErrorMessage"
     Exit 42
 }
-
+ #>
 #Slack
 try 
 {
@@ -465,7 +465,7 @@ catch
     Exit 42
 }
 
-#DBeaver
+<# #DBeaver
 
 try 
 {
@@ -481,7 +481,7 @@ catch
    	write-log "Error installing DBeaver: $ErrorMessage"
     Exit 42
 }
-
+ #>
 #Azul-Zulu_JDK-17_ver17.42.19
 
 try 
