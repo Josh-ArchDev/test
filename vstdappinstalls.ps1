@@ -590,3 +590,44 @@ catch
    	write-log "Error copying FSLogixRules: $ErrorMessage"
     Exit 42
 }
+#Copy MoveFSLogixRules.ps1 to C:\Windows\Temp
+try 
+{
+    $scriptsourcePath = "C:\ImageBuild\MoveFSLogixRules.ps1"
+	$scriptdestinationPath = "C:\Windows\Temp\MoveFSLogixRules.ps1"
+	Write-Log "Starting the copy of the MoveFSLogixRules.ps1 file"
+	if (Test-Path -Path $sourcePath) 
+	{
+		# Copy the file to the destination
+		Copy-Item -Path $scriptsourcePath -Destination $scriptdestinationPath
+		Write-Log "The MoveFSLogixRules.ps1 File copied successfully."
+	}
+	
+    Write-Log "Starting the creation of the MoveFSLogixRules Scheduled Task."
+	# Create a trigger that starts the task at system startup
+	$Trigger = New-ScheduledTaskTrigger -AtStartup
+	$STSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -DontStopOnIdleEnd -StartWhenAvailable -Hidden -Compatibility Win8
+
+	# Create an action that specifies calling powershell.exe with parameters to run your script
+	$PSArgs = "-NoProfile -ExecutionPolicy Bypass -File"
+	$ScriptPath = "C:\Windows\Temp\MoveFSLogixRules.ps1"
+	$ScriptArgs = "$PSArgs" + " " + "$ScriptPath" 
+	$Action = New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument "$ScriptArgs"
+
+	# Create the principal to run the task as Local System with highest privileges
+	$Principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -RunLevel Highest
+
+	# Register the task with the settings defined above
+	Register-ScheduledTask -TaskName "MoveFSLogixRules" -Trigger $Trigger -Action $Action -Principal $Principal -Settings $STSettings
+
+	# Output to indicate task creation
+	Write-Log "Scheduled task 'MoveFSLogixRules' created successfully."
+
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error copying the MoveFSLogixRules.ps1 file or Error creating the MoveFSLogixRules Scheduled Task: $ErrorMessage"
+    Exit 42
+}
