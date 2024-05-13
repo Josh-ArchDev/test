@@ -53,7 +53,7 @@ try
  
     Write-Log "Starting the ForcePoint Install"
 	Start-Process -filepath 'C:\ImageBuild\FP-22.06\FORCEPOINT-ONE-ENDPOINT-x64.exe' -ArgumentList '/v" /quiet /norestart"' -Wait -ErrorAction Stop
-	Write-Log "Successfully installed the ForcePoint Software"
+	Write-Log "Successfully Completed the ForcePoint Software Install."
     #Start-Sleep -Seconds 300
 }
  
@@ -174,7 +174,7 @@ try
 {
     Write-Log "Starting the install of the Java 1.8 Client Package"	
 	Start-Process -FilePath "C:\ImageBuild\Java1.8\Java_1.8.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the Java 1.8 Client Package"
+    Write-Log "Successfully Completed the install of the Java 1.8 Client Package"
 
 }
 
@@ -224,7 +224,7 @@ try
 {
 	Write-Log "Starting the install of the SAP End User INI Package"	
 	Start-Process -FilePath "C:\ImageBuild\SAPGUI ENDUSER INI_ver``[0.0.80``]\sapgui_ini_enduser-6.7.msi" -ArgumentList "/quiet" -Wait -ErrorAction Stop
-	Write-Log "Starting the install of the SAP End User INI GUI Package"
+	Write-Log "Successfully Completed the install of the SAP End User INI GUI Package"
 
 }
 
@@ -268,19 +268,20 @@ catch
 
 #MicrosoftEdgeWebview2
 
-try {
-
-		Start-Process -FilePath "C:\ImageBuild\EdgeWebview2\MicrosoftEdgeWebview2Setup.exe" -ArgumentList '/silent /install' -Wait -ErrorAction Stop
+try 
+{
+	Write-Log "Starting the install of the Microsoft Edge WebView Package"
+	Start-Process -FilePath "C:\ImageBuild\EdgeWebview2\MicrosoftEdgeWebview2Setup.exe" -ArgumentList '/silent /install' -Wait -ErrorAction Stop
+	Write-Log "Successfully Completed the install of the Microsoft Edge WebView Package"
 
 }
 
-	catch {
-
-		$ErrorMessage = $_.Exception.message
- 
-    	write-log "Error installing MicrosoftEdgeWebview2: $ErrorMessage"
-
-	}
+catch
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing MicrosoftEdgeWebview2: $ErrorMessage"
+	Exit 42
+}
 
 <# #PowerBI
 
@@ -338,7 +339,7 @@ try
 {
     Write-Log "Starting the install of the 7Zip Package"
 	Start-Process -FilePath "C:\ImageBuild\7zip\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the 7Zip Package"
+    Write-Log "Successfully Completed the install of the 7Zip Package"
 
 }
 
@@ -372,7 +373,7 @@ try {
 
 	Write-Log "Starting the install of the Putty Package"	
     Start-Process -FilePath "C:\ImageBuild\Putty\Putty.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the Putty Package"
+    Write-Log "Successfully Completed the install of the Putty Package"
 
 }
 
@@ -387,7 +388,7 @@ try
 {
 	Write-Log "Starting the install of the Bogle Font Package"	
 	Start-Process -FilePath "C:\ImageBuild\BogleFont\BogleFont-1.0.msi" -ArgumentList "/q ALLUSERS=2 /m MSIYXKCO /l* c:\Windows\temp\BogleFonts.log" -Wait -ErrorAction Stop
-	Write-Log "Successfully Compeleted the install of the Bogle Font Package"
+	Write-Log "Successfully Completed the install of the Bogle Font Package"
 
 }
 
@@ -403,7 +404,7 @@ try
 {
     Write-Log "Starting the install of the Journal Entry Tool Package"	
 	Start-Process -FilePath "C:\ImageBuild\Journal Entry Tool_ver3.103.25\Prod-3.103.25.0.msi" -ArgumentList "/quiet" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the Journal Entry Tool Package"	
+    Write-Log "Successfully Completed the install of the Journal Entry Tool Package"	
 
 }
 
@@ -420,7 +421,7 @@ try
 {
     Write-Log "Starting the install of the JDA Category Management Package"	
 	Start-Process -FilePath "C:\ImageBuild\JDA_Category_Management_ver2017.2k\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the JDA Category Management Package"
+    Write-Log "Successfully Completed install of the JDA Category Management Package"
 
 }
 
@@ -438,7 +439,7 @@ try
 
 	Write-Log "Starting the install of the Informix Package"		
     Start-Process -FilePath "C:\ImageBuild\Informix_410a_ver4.10a\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the Informix Package"
+    Write-Log "Successfully Completed the install of the Informix Package"
 
 }
 
@@ -455,7 +456,7 @@ try
 {
     Write-Log "Starting the install of the InteliJ Package"
 	Start-Process -FilePath "C:\ImageBuild\IntelliJ_Idea\IntelliJ_IDEA.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the InteliJ Package"
+    Write-Log "Successfully Completed the install of the InteliJ Package"
 }
 
 catch 
@@ -488,7 +489,7 @@ try
 {
     Write-Log "Starting the install of the Azul-Zulu JDK Package"
 	Start-Process -FilePath "C:\ImageBuild\Azul-Zulu_JDK-17_ver17.42.19\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Starting the install of the Azul-Zulu JDK Package"
+    Write-Log "Successfully Completed the install of the Azul-Zulu JDK Package"
 
 }
 
@@ -579,7 +580,7 @@ try
 
 	Write-Log "Starting the copy of the FSLogix App Masking Rules"	
     Copy-Item -Path C:\ImageBuild\FSLogixRules\* -Destination 'C:\Program Files\FSLogix\Apps\Rules' -Recurse
-    Write-Log "Starting the copy of the FSLogix App Masking Rules"	
+    Write-Log "Successfully Completed the copy of the FSLogix App Masking Rules"	
 
 }
 
