@@ -556,3 +556,35 @@ catch
    	write-log "Error installing BogleFont: $ErrorMessage"
     Exit 42
 }
+### Configuring Desktops Shortcuts ###
+try 
+{
+	# Define the path to the CSV file and the Public Desktop directory
+	$csvPath = "C:\ImageBuild\setdesktopshortcuts.csv" 
+	$publicDesktopPath = "C:\Users\Public\Desktop"
+
+	# Read the CSV file and create an array of filenames to keep
+	$filesToKeep = Import-Csv -Path $csvPath | ForEach-Object { $_.Filename }
+
+	# Get all the files in the Public Desktop directory
+	$filesInPublicDesktop = Get-ChildItem -Path $publicDesktopPath
+
+	# Start the logging process
+	Write-Log "Starting the cleanup of the Public Desktop directory."
+
+	foreach ($file in $filesInPublicDesktop) {
+    	# Check if the current file is not in the list of files to keep
+    	if ($file.Name -notin $filesToKeep) {
+        	# Delete the file
+        	Remove-Item -Path $file.FullName -Force
+        	Write-Log "Successfully Deleted file: $($file.Name)"
+    	}
+}
+	
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error cleaning up the desktop icons: $ErrorMessage"
+    Exit 42
+}
