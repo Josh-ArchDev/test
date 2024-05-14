@@ -574,22 +574,32 @@ Write-Host "Web shortcuts with custom icons created successfully on the desktop 
 Write-Log "Completed creating web shortcuts with custom icons on the desktop for all users."
 
 #Copy FSLogix Rules
+#Copy FSLogix Rules
 
 try 
 {
+    Write-Log "Checking for the FSLogix Rules directory."
+    $rulesDirectory = 'C:\Program Files\FSLogix\Apps\Rules\Rules'
+    
+    # Check if the Rules directory exists, create it if it does not
+    if (-not (Test-Path -Path $rulesDirectory)) {
+        New-Item -Path $rulesDirectory -ItemType Directory
+        Write-Log "FSLogix Rules directory created."
+    }
 
-	Write-Log "Starting the copy of the FSLogix App Masking Rules"	
-    Copy-Item -Path C:\ImageBuild\FSLogixRules\* -Destination 'C:\Program Files\FSLogix\Apps\Rules' -Recurse
-    Write-Log "Successfully Completed the copy of the FSLogix App Masking Rules"	
+    Write-Log "Starting the copy of the FSLogix App Masking Rules" 
+    Copy-Item -Path C:\ImageBuild\FSLogixRules\* -Destination $rulesDirectory -Recurse
+    Write-Log "Successfully Completed the copy of the FSLogix App Masking Rules" 
 
 }
-
 catch 
 {
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error copying FSLogixRules: $ErrorMessage"
+    $ErrorMessage = $_.Exception.message
+    write-log "Error copying FSLogixRules: $ErrorMessage"
     Exit 42
 }
+
+ 
 #Copy MoveFSLogixRules.ps1 to C:\Windows\Temp
 try 
 {
