@@ -547,7 +547,7 @@ try
     $scriptsourcePath = "C:\ImageBuild\MoveFSLogixRules.ps1"
 	$scriptdestinationPath = "C:\Windows\Temp\MoveFSLogixRules.ps1"
 	Write-Log "Starting the copy of the MoveFSLogixRules.ps1 file"
-	if (Test-Path -Path $sourcePath) 
+	if (Test-Path -Path $scriptsourcePath) 
 	{
 		# Copy the file to the destination
 		Copy-Item -Path $scriptsourcePath -Destination $scriptdestinationPath
