@@ -329,7 +329,7 @@ catch
    	write-log "Error installing RightNowService: $ErrorMessage"
 	Exit 42
 }
-
+<# 
 #Chrome
 try 
 {
@@ -345,7 +345,7 @@ catch
    	write-log "Error installing Chromev120: $ErrorMessage"
 	Exit 42
 }
-
+ #>
 #BogleFont
 
 try 
