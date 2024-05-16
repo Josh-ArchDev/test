@@ -674,3 +674,6 @@ catch
    	write-log "Error cleaning up the desktop icons: $ErrorMessage"
     Exit 42
 }
+
+### Arrange desktop Icons using RunOnce Registry key ###
+
