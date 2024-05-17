@@ -178,7 +178,7 @@ try
 	$folderPath = "C:\Windows\PackageLogs\SBOPAnalysisMSOffice"
 	$fileType = "*.wmt"
 	$processName = "SHUTDO~1"
-    $processName1 = "pcaui"
+    #$processName1 = "pcaui"
 
 	while ($true) {
    		if (Test-Path $folderPath) {
@@ -188,10 +188,12 @@ try
 					Start-Sleep -Seconds 15
             		Stop-Process -Name $processName -Force
             		Write-Log "$processName process has been stopped"
-                    Start-Sleep -Seconds 15
+                    <# 
+					Start-Sleep -Seconds 15
                     Stop-Process -Name $processName1 -Force 
                     Write-Log "$processName1 process has been stopped"
-            	break
+            	 #>
+				break
         	} else {
             	#Write-Output "No $fileType files found in $folderPath"
         }
@@ -283,7 +285,7 @@ try
 {
 	Write-Log "Starting the install of the SAP End User INI Package"	
 	Start-Process -FilePath "C:\ImageBuild\SAPGUI ENDUSER INI_ver``[0.0.80``]\sapgui_ini_enduser-6.7.msi" -ArgumentList "/quiet" -Wait -ErrorAction Stop
-	Write-Log "Starting the install of the SAP End User INI GUI Package"
+	Write-Log "Successfully Completed the install of the SAP End User INI Package"
 
 }
 
