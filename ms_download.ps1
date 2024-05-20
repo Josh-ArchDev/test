@@ -59,12 +59,12 @@ try
     Write-Log "Successfully copied all application installation binaries to the C:\ImageBuild directory."
     Write-Log "Finding the required application binary archives"
     # Get all folders in the specified directory
-    $folders = Get-ChildItem -Path "C:\ImageBuild" -Directory
+    #$folders = Get-ChildItem -Path "C:\ImageBuild" -Directory
     # Sort folders by creation time in descending order
-    $sortedFolders = $folders | Sort-Object CreationTime -Descending
+    #$sortedFolders = $folders | Sort-Object CreationTime -Descending
     # Get the most recently created folder
-    $mostRecentFolder = $sortedFolders[0].Name
-    $source = "C:\ImageBuild\" + $mostRecentFolder
+    #$mostRecentFolder = $sortedFolders[0].Name
+    $source = "C:\ImageBuild\" 
 }
 catch 
 {
