@@ -195,6 +195,23 @@ catch
    	write-log "Error installing DAX_Studio_ver3.0.8.945: $ErrorMessage"
     Exit 42
 }
+#NewTeams
+
+try 
+{
+    Write-Log "Starting the install of the New Teams Client Package"	
+	Start-Process -filepath 'C:\ImageBuild\Microsoft_Teams_ver24004.1309.2689.2246\Deploy-Application.exe' -ArgumentList 'Install NonInteractive' -Wait -ErrorAction Stop
+    #Start-Sleep -Seconds 300
+	Write-Log "Successfully Completed the install of the New Teams Client Package"
+}
+ 
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+    write-log "Error installing NewTeams: $ErrorMessage"
+	Exit 42
+}
+
 
 #Chrome
 
@@ -573,4 +590,28 @@ catch
    	write-log "Error cleaning up the desktop icons: $ErrorMessage"
     Exit 42
 }
+### Register DLL and Copy TeamsMeetingAdd-in ###
+try 
+{
+    # Define the source and destination paths
+    Write-Log "Starting the installation of the Teams Meeting Add-in for Outlook"
+    $sourcePath = "C:\ImageBuild\TeamsMeetingAdd-in"
+    $destPath = "C:\Users\default\AppData\Local\Microsoft\"
+    $dllPath = "C:\Users\default\AppData\Local\Microsoft\TeamsMeetingAdd-in\1.24.13005\x64\Microsoft.Teams.AddinLoader.dll" 
 
+    # Copy the TeamsMeetingAdd-in folder to the destination
+    Copy-Item -Path $sourcePath -Destination $destPath -Recurse -Force
+    Write-Log "Successfully copied TeamsMeetingAdd-in to $destPath"
+
+    # Register the DLL
+    #$dllPath = Join-Path -Path $destPath -ChildPath $dllName
+    Start-Process -FilePath "C:\Windows\SysWOW64\Regsvr32.exe" -ArgumentList "/s `"$dllPath`"" -Wait
+    Write-Log "Successfully registered $dllName"
+    Write-Log "Successfully Completed the installation of the Teams Meeting Add-in for Outlook Package."
+}
+catch 
+{
+    $ErrorMessage = $_.Exception.Message
+    Write-Log "Error occurred: $ErrorMessage"
+    Exit 42
+}
