@@ -191,6 +191,7 @@ try
 				Start-Sleep -Seconds 15
             	Stop-Process -Name $processName -Force
             	Write-Log "$processName process has been stopped"
+				Write-Log "Successfully Completed the install of the SBOPAnalysisMSOffice Package"
                 <# 
 				Start-Sleep -Seconds 15
                 Stop-Process -Name $processName1 -Force 
@@ -204,9 +205,9 @@ try
 		{
         	Write-Log "$folderPath does not exist"
     	}
-    		Start-Sleep -Seconds 5
-			Write-Log "Successfully Completed the install of the SBOPAnalysisMSOffice Package"
-}		
+    	
+		Start-Sleep -Seconds 5
+	}		
 
 }
 
