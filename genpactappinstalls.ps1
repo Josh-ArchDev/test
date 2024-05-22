@@ -309,23 +309,25 @@ try
 	$folderPath = "C:\Windows\PackageLogs\RightNowService"
 	$fileType = "*.wmt"
 	$processName = "SHUTDO~1"
-	while ($true) {
-   		if (Test-Path $folderPath) {
+	while ($true) 
+	{
+   		if (Test-Path $folderPath) 
+		{
        		$files = Get-ChildItem $folderPath -Filter $fileType
-       		if ($files.Count -gt 0) {
-           		#Write-Output "Found $($files.Count) $fileType files in $folderPath"
+       		if ($files.Count -gt 0) 
+			{
+           		Write-Log "Found $($files.Count) $fileType files in $folderPath"
 				Start-Sleep -Seconds 10
            		Stop-Process -Name $processName -Force
-           		#Write-Output "$processName process has been stopped"
+				Write-Log "$processName process has been stopped"
+				Write-Log "Successfully Completed the install of the Right Now Service Package"
+           		
            	break
-       	} else {
-           	#Write-Output "No $fileType files found in $folderPath"
-    }
-  	} else {
-       	#Write-Output "$folderPath does not exist"
-}
+       	 	} 
+		} 
+	
    		Start-Sleep -Seconds 5
-		Write-Log "Successfully Completed the install of the Right Now Service Package"
+		
 }	
 
 }
