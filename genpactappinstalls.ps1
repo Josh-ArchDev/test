@@ -180,26 +180,30 @@ try
 	$processName = "SHUTDO~1"
     #$processName1 = "pcaui"
 
-	while ($true) {
-   		if (Test-Path $folderPath) {
-	       		$files = Get-ChildItem $folderPath -Filter $fileType
-        		if ($files.Count -gt 0) {
-            		Write-Log "Found $($files.Count) $fileType files in $folderPath"
-					Start-Sleep -Seconds 15
-            		Stop-Process -Name $processName -Force
-            		Write-Log "$processName process has been stopped"
-                    <# 
-					Start-Sleep -Seconds 15
-                    Stop-Process -Name $processName1 -Force 
-                    Write-Log "$processName1 process has been stopped"
+	while ($true) 
+	{
+   		if (Test-Path $folderPath) 
+		{
+	    	$files = Get-ChildItem $folderPath -Filter $fileType
+        	if ($files.Count -gt 0) 
+			{
+            	Write-Log "Found $($files.Count) $fileType files in $folderPath"
+				Start-Sleep -Seconds 15
+            	Stop-Process -Name $processName -Force
+            	Write-Log "$processName process has been stopped"
+                <# 
+				Start-Sleep -Seconds 15
+                Stop-Process -Name $processName1 -Force 
+                Write-Log "$processName1 process has been stopped"
             	 #>
 				break
-        	} else {
-            	#Write-Output "No $fileType files found in $folderPath"
-        }
-    	} else {
-        	#Write-Output "$folderPath does not exist"
-    }
+        	} 
+			
+    	} 
+		else 
+		{
+        	Write-Log "$folderPath does not exist"
+    	}
     		Start-Sleep -Seconds 5
 			Write-Log "Successfully Completed the install of the SBOPAnalysisMSOffice Package"
 }		
