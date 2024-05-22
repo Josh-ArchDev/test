@@ -34,18 +34,19 @@ function Write-Log
 			New-Item -Path $logDirectory -ItemType Directory
 			Write-Host "Log directory created at: $logDirectory"
 		}
-		# Log message to console and file
-		Write-Host $Message
-		Add-Content -Path $LogFilePath -Value "$(Get-Date) - $Message"
-
+		# Get current date and time
+		$dateTime = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+		# Log message with date and time to console and file
+		$logMessage = "$dateTime - $Message"
+		Write-Host $logMessage
+		Add-Content -Path $LogFilePath -Value $logMessage
 	}
 	catch
 	{
 		write-host "Having issues creating or adding information to the logfile at $LogFilePath"
 	}
 }
-	
- 
+
 #ForcePoint
 
 try 
@@ -152,7 +153,7 @@ catch
 }
 
 #NewTeams
-
+<# 
 try 
 {
     Write-Log "Starting the install of the New Teams Client Package"	
@@ -167,7 +168,7 @@ catch
     write-log "Error installing NewTeams: $ErrorMessage"
 	Exit 42
 }
-
+ #>
 #Reflection MultiHost
 
 try 

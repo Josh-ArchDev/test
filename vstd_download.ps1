@@ -16,33 +16,35 @@
 #######################################################################################################################
 
 # Set the Log File Path
-$LogFilePath = "C:\ImageBuild\download.log"
+$LogFilePath = "C:\ImageBuild\vstd_download.log"
 
 # Function to write logs
-Function Write-Log
+function Write-Log
 {
-    param (
-        [string]$Message
-    )
+	param (
+		[string]$Message
+	)
 
-    try
-    {
-        # Check if the log file directory exists, create it if not
-        $logDirectory = Split-Path -Path $LogFilePath
-        if (-Not (Test-Path -Path $logDirectory))
-        {
-            New-Item -Path $logDirectory -ItemType Directory
-            Write-Host "Log directory created at: $logDirectory"
-        }
-        # Log message to console and file
-        Write-Host $Message
-        Add-Content -Path $LogFilePath -Value "$(Get-Date) - $Message"
-
-    }
-    catch
-    {
-        write-host "Having issues creating or adding information to the logfile at $LogFilePath"
-    }
+	try
+	{
+		# Check if the log file directory exists, create it if not
+		$logDirectory = Split-Path -Path $LogFilePath
+		if (-Not (Test-Path -Path $logDirectory))
+		{
+			New-Item -Path $logDirectory -ItemType Directory
+			Write-Host "Log directory created at: $logDirectory"
+		}
+		# Get current date and time
+		$dateTime = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+		# Log message with date and time to console and file
+		$logMessage = "$dateTime - $Message"
+		Write-Host $logMessage
+		Add-Content -Path $LogFilePath -Value $logMessage
+	}
+	catch
+	{
+		write-host "Having issues creating or adding information to the logfile at $LogFilePath"
+	}
 }
 
 

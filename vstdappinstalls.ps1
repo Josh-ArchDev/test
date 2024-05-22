@@ -180,7 +180,7 @@ catch
 }
 
 #NewTeams
-
+<# 
 try 
 {
     Write-Log "Starting the install of the New Teams Client Package"	
@@ -195,7 +195,7 @@ catch
     write-log "Error installing NewTeams: $ErrorMessage"
 	Exit 42
 }
-
+ #>
 #Java1.8
 
 try 
