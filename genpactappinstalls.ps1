@@ -404,7 +404,7 @@ catch
    	write-log "Error cleaning up the desktop icons: $ErrorMessage"
     Exit 42
 }
-<# 
+
 ### Register DLL and Copy TeamsMeetingAdd-in ###
 try 
 {
@@ -430,4 +430,3 @@ catch
     Write-Log "Error occurred: $ErrorMessage"
     Exit 42
 }
- #>
