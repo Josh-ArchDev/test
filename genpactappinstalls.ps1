@@ -219,6 +219,7 @@ catch
 	Exit 42
 }
 
+<# 
 #Alteryx
 
 try 
@@ -235,7 +236,8 @@ catch
    	write-log "Error installing Alteryx_2019.4g: $ErrorMessage"
 	Exit 42
 }
-
+ #>
+ 
 #Reflection MultiHost
 
 try 
