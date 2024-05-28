@@ -1,6 +1,6 @@
 #######################################################################################################################
 ###                                                                                                                 ###
-###    Script Name: CreateScheduledTask.ps1                                                                         ###
+###    Script Name: FSLogix_CreateScheduledTask.ps1                                                                 ###
 ###    Script Function: This script is meant to create a scheduled task that moves FSLogix rules to the proper      ###
 ###                     location. The script is required as FSlogix rules break sysprep                             ###
 ###                                                                                                                 ###
