@@ -237,7 +237,7 @@ catch
 	Exit 42
 }
  #>
- 
+
 #Reflection MultiHost
 
 try 
@@ -378,7 +378,7 @@ catch
 try 
 {
 	# Define the path to the CSV file and the Public Desktop directory
-	$csvPath = "C:\ImageBuild\setdesktopshortcuts.csv" # Replace with the actual path to your CSV file
+	$csvPath = "C:\ImageBuild\UtilityScripts\setdesktopshortcuts.csv" # Replace with the actual path to your CSV file
 	$publicDesktopPath = "C:\Users\Public\Desktop"
 
 	# Read the CSV file and create an array of filenames to keep

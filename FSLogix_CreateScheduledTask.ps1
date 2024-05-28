@@ -45,7 +45,7 @@ function Write-Log
 #Copy MoveFSLogixRules.ps1 to C:\Windows\Temp
 try 
 {
-    $scriptsourcePath = "C:\ImageBuild\MoveFSLogixRules.ps1"
+    $scriptsourcePath = "C:\ImageBuild\UtilityScripts\MoveFSLogixRules.ps1"
 	$scriptdestinationPath = "C:\Windows\Temp\MoveFSLogixRules.ps1"
 	Write-Log "Starting the copy of the MoveFSLogixRules.ps1 file"
 	if (Test-Path -Path $scriptsourcePath) 
