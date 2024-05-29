@@ -217,22 +217,22 @@ catch
 
 
 
-#Alteryx
+# #Alteryx
 
-try 
-{
-	Write-Log "Starting the install of the Alteryx Package"
-	Start-Process -FilePath "C:\ImageBuild\Alteryx_64bit_ver[2019.4g]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-	Write-Log "Successfully Completed the install of the Alteryx Package"
+# try 
+# {
+# 	Write-Log "Starting the install of the Alteryx Package"
+# 	Start-Process -FilePath "C:\ImageBuild\Alteryx_64bit_ver[2019.4g]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
+# 	Write-Log "Successfully Completed the install of the Alteryx Package"
 
-}
+# }
 
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing Alteryx_2019.4g: $ErrorMessage"
-	Exit 42
-}
+# catch 
+# {
+# 	$ErrorMessage = $_.Exception.message
+#    	write-log "Error installing Alteryx_2019.4g: $ErrorMessage"
+# 	Exit 42
+# }
  
 
 #Reflection MultiHost
