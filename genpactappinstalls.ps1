@@ -171,6 +171,7 @@ catch
 }
  #>
 #SBOPAnalysisMSOffice
+#>
 
 try 
 {
@@ -193,12 +194,7 @@ try
             	Stop-Process -Name $processName -Force
             	Write-Log "$processName process has been stopped"
 				Write-Log "Successfully Completed the install of the SBOPAnalysisMSOffice Package"
-                <# 
-				Start-Sleep -Seconds 15
-                Stop-Process -Name $processName1 -Force 
-                Write-Log "$processName1 process has been stopped"
-            	 #>
-				break
+                break
         	} 
 			
     	} 
@@ -219,7 +215,8 @@ catch
 	Exit 42
 }
 
-<# 
+
+
 #Alteryx
 
 try 
@@ -236,7 +233,7 @@ catch
    	write-log "Error installing Alteryx_2019.4g: $ErrorMessage"
 	Exit 42
 }
- #>
+ 
 
 #Reflection MultiHost
 
