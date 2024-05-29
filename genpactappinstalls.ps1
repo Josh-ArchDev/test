@@ -153,25 +153,9 @@ catch
 	Exit 42
 }
 
-#NewTeams
-<# 
-try 
-{
-    Write-Log "Starting the install of the New Teams Client Package"	
-	Start-Process -filepath 'C:\ImageBuild\Microsoft_Teams_ver24004.1309.2689.2246\Deploy-Application.exe' -ArgumentList 'Install NonInteractive' -Wait -ErrorAction Stop
-    #Start-Sleep -Seconds 300
-	Write-Log "Successfully Completed the install of the New Teams Client Package"
-}
- 
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-    write-log "Error installing NewTeams: $ErrorMessage"
-	Exit 42
-}
- #>
+
 #SBOPAnalysisMSOffice
-#>
+
 
 try 
 {
@@ -338,23 +322,7 @@ catch
    	write-log "Error installing RightNowService: $ErrorMessage"
 	Exit 42
 }
-<# 
-#Chrome
-try 
-{
-	Write-Log "Starting the install of the Google Chrome Package"
-	Start-Process msiexec.exe -ArgumentList '/i c:\imagebuild\Chrome\googlechromestandaloneenterprise64.msi /qn' -Wait -ErrorAction Stop
-	Write-Log "Successfully Completed the install of the Google Chrome Package"
 
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing Chromev120: $ErrorMessage"
-	Exit 42
-}
- #>
 #BogleFont
 
 try 
