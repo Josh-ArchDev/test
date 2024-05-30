@@ -68,4 +68,21 @@ try {
 }
  #>
 
+
+### Try to unregister the Scheduled Task ###
+Try
+{
+    Write-Log "Unregistering the scheduled task that called this script"
+    Unregister-ScheduledTask -TaskName "OnboardMDE" -Confirm:$false
+    Write-Log "Successfully unregistered the OnboardMDE Scheduled Task"
+
+}
+Catch
+{
+    $ErrorMessage = $_.Exception.Message
+    Write-Log "Error unregistering the Scheduled Task: $ErrorMessage"
+    Write-Log "This error is non critical and the process will continue"
+    Exit 0
+}
 Write-Log "Script execution completed successfully!"
+# End of script

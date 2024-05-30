@@ -61,9 +61,8 @@ try
 	$STSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -DontStopOnIdleEnd -StartWhenAvailable -Hidden -Compatibility Win8
 
 	# Create an action that specifies calling powershell.exe with parameters to run your script
-	#$ScriptPath = "C:\Windows\Temp\WindowsDefenderATPOnboardingScript.cmd"
-	#$ScriptArgs = "$PSArgs" + " " + "$ScriptPath" 
-	$Action = New-ScheduledTaskAction -Execute "C:\Windows\Temp\WindowsDefenderATPOnboardingScript.cmd" #-Argument "$ScriptArgs"
+	$ScriptPath = "C:\Windows\Temp\WindowsDefenderATPOnboardingScript.cmd"
+	$Action = New-ScheduledTaskAction -Execute "C:\Windows\system32\cmd.exe" -Argument "$ScriptPath"
 
 	# Create the principal to run the task as Local System with highest privileges
 	$Principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -RunLevel Highest
