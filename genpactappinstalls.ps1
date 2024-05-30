@@ -397,3 +397,29 @@ catch
     Write-Log "Error occurred: $ErrorMessage"
     Exit 42
 }
+
+# Creating additional desktop shortcuts.
+Write-Log "Creating the MS Outlook and File Explorer shortcuts on the desktop for all users."
+try 
+{
+	$publicDesktop = [System.Environment]::GetFolderPath('CommonDesktopDirectory')
+	$outlookPath = "C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE"
+	$fileExplorerPath = "C:\Windows\explorer.exe"
+	Write-Log "Creating the Outlook Shortcut"
+	$outlookShortcut = $publicDesktop + "\Microsoft Outlook.lnk"
+	$shell = New-Object -ComObject WScript.Shell
+	$shortcut = $shell.CreateShortcut($outlookShortcut)
+	$shortcut.TargetPath = $outlookPath
+	$shortcut.Save()
+	Write-Log "Creating the File Explorer Shortcut"
+	$fileExplorerShortcut = $publicDesktop + "\Windows File Explorer.lnk"
+	$shortcut = $shell.CreateShortcut($fileExplorerShortcut)
+	$shortcut.TargetPath = $fileExplorerPath
+	$shortcut.Save()
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+    write-log "Error creating a shortcut $ErrorMessage"
+    Exit 42
+}

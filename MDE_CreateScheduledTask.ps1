@@ -60,7 +60,7 @@ try
 	{
 		# Copy the file to the destination
 		Copy-Item -Path $STRemovalScriptPath -Destination "C:\Windows\Temp\Remove-MDEOnboardingST.ps1"
-		Write-Log "The Remove-MDEOnboarding.ps1 File copied successfully."
+		Write-Log "The Remove-MDEOnboardingST.ps1 File copied successfully."
 	}
 	
 
