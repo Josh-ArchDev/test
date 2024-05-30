@@ -62,7 +62,7 @@ try
 
 	# Create an action that specifies calling powershell.exe with parameters to run your script
 	$ScriptPath = "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
-	$Action = New-ScheduledTaskAction -Execute "C:\Windows\system32\cmd.exe" -Argument "$ScriptPath" -WorkingDirectory "C:\Windows\Temp"
+	$Action = New-ScheduledTaskAction -Execute "$ScriptPath" -WorkingDirectory "C:\Windows\Temp"
 
 	# Create the principal to run the task as Local System with highest privileges
 	$Principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -RunLevel Highest
