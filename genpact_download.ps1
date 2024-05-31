@@ -1,6 +1,6 @@
 #######################################################################################################################
 ###                                                                                                                 ###
-###    Script Name: download.ps1                                                                                    ###
+###    Script Name: genpact_download.ps1                                                                            ###
 ###    Script Function: This script is meant to download and extract contents of zip files from a Blob Storage      ###
 ###                     Account using AZCopy.exe that is downloaded and extracted in the azcopy.ps1 script.         ### 
 ###                     This script is used as part of the Custom Image Template deployments for AVD. Once all the  ###
