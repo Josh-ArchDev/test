@@ -56,7 +56,7 @@ try
     $destination = "C:\ImageBuild"
     Write-log "Copying application installation binaries from $source directory to the C:\ImageBuild directory"
     ### Update the <Archive Location> with the SAS token for the proper download of the app binaries ###
-    c:\\ImageBuild\\azcopy.exe copy 'https://efa56cc125stg.blob.core.windows.net/microsoftapps?sp=rl&st=2024-05-21T16:22:39Z&se=2024-06-01T00:22:39Z&spr=https&sv=2022-11-02&sr=c&sig=vQnQAQOBGi3X6WoXrjG2zmEbM6hfhz8qyVWwOv1%2FGBc%3D' 'c:\\ImageBuild\\' --recursive=true   
+    c:\\ImageBuild\\azcopy.exe copy 'https://efa56cc125stg.blob.core.windows.net/microsoftapps?sp=rl&st=2024-06-03T16:13:47Z&se=2024-06-23T00:13:47Z&spr=https&sv=2022-11-02&sr=c&sig=XKIoQvhA1tc1sJsCBuyhEh%2Buz1vwpGwUMaHhuVha59M%3D' 'c:\\ImageBuild\\' --recursive=true   
     Write-Log "Successfully copied all application installation binaries to the C:\ImageBuild directory."
     Write-Log "Finding the required application binary archives"
     # Get all folders in the specified directory
