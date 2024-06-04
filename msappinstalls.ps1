@@ -471,66 +471,6 @@ catch
     Exit 42
 }
 
-### Installing Yubi Key Enrollment App ###
-try 
-{
-    Write-Log "Starting the install of the yubikey_enrollment_app Package"		
-    Start-Process -FilePath "C:\ImageBuild\yubikey_enrollment_app_cert_update_ver[1.0.0]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the yubikey_enrollment_app Package"		
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-  	write-log "Error installing the yubikey_enrollment_app package: $ErrorMessage"
-    Exit 42
-}
-
-### Installing Yubi Admin Tool App ###
-try 
-{
-    Write-Log "Starting the install of the Yubikey Admin Tool Package"		
-    Start-Process -FilePath "C:\ImageBuild\YubikeyAdminTool_ver[1.2.2]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Yubikey Admin Tool Package"		
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-  	write-log "Error installing the Yubikey Admin Tool Package: $ErrorMessage"
-    Exit 42
-}
-### Installing the Yubikey API ###
-try 
-{
-    Write-Log "Starting the install of the Yubikey API Package"		
-    Start-Process -FilePath "C:\ImageBuild\YubikeyAPIs\yubikeyapis.exe" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Yubikey API Package"		
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-  	write-log "Error installing the Yubikey API Package: $ErrorMessage"
-    Exit 42
-}
-
-### Installing the SAP S4 Hana GUI ###
-try 
-{
-    Write-Log "Starting the install of the SAP S4 Hana GUI Package"		
-    Start-Process -FilePath "C:\ImageBuild\SAP_Hana_Client\SAP_Hana_Client.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the SAP S4 Hana GUI Package."		
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-  	write-log "Error installing the SAP S4 Hana GUI Package: $ErrorMessage"
-    Exit 42
-}
-
-
 # PowerShell script to create web shortcuts (.URL files) for Office Web Apps on the desktop for all users with custom icons, error handling, and logging
 
 # Define shortcut locations
