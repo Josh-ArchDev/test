@@ -387,7 +387,15 @@ try
     Write-Log "Starting the install of the Python 3.10.5 Package"	
     Start-Process -FilePath "C:\ImageBuild\Python\python-3.10.5-amd64.exe" -ArgumentList "/quiet InstallAllUsers=1 TARGETDIR=C:\Program Files\Python310" -Wait -ErrorAction Stop
     Write-Log "Successfully Completed the install of the Python 3.10.5 Package"	
-
+    Write-Log "Now installing Python Modules"
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install google-cloud-storage" -Wait -ErrorAction Stop
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install pandas" -Wait -ErrorAction Stop
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install pandas-gbq" -Wait -ErrorAction Stop
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install matplotlib" -Wait -ErrorAction Stop
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install requests==2.29.0" -Wait -ErrorAction Stop
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install gcsfs" -Wait -ErrorAction Stop
+    Start-Process "C:\Program Files\Python310\Scripts\pip.exe" -ArgumentList "install beautifulsoup4" -Wait -ErrorAction Stop
+    Write-Log "Successfully Installed the additional python modules"
 }
 
 catch 
@@ -462,6 +470,66 @@ catch
    	write-log "Error installing Slack_4.36.136: $ErrorMessage"
     Exit 42
 }
+
+### Installing Yubi Key Enrollment App ###
+try 
+{
+    Write-Log "Starting the install of the yubikey_enrollment_app Package"		
+    Start-Process -FilePath "C:\ImageBuild\yubikey_enrollment_app_cert_update_ver[1.0.0]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the yubikey_enrollment_app Package"		
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+  	write-log "Error installing the yubikey_enrollment_app package: $ErrorMessage"
+    Exit 42
+}
+
+### Installing Yubi Admin Tool App ###
+try 
+{
+    Write-Log "Starting the install of the Yubikey Admin Tool Package"		
+    Start-Process -FilePath "C:\ImageBuild\YubikeyAdminTool_ver[1.2.2]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Yubikey Admin Tool Package"		
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+  	write-log "Error installing the Yubikey Admin Tool Package: $ErrorMessage"
+    Exit 42
+}
+### Installing the Yubikey API ###
+try 
+{
+    Write-Log "Starting the install of the Yubikey API Package"		
+    Start-Process -FilePath "C:\ImageBuild\YubikeyAPIs\yubikeyapis.exe" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Yubikey API Package"		
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+  	write-log "Error installing the Yubikey API Package: $ErrorMessage"
+    Exit 42
+}
+
+### Installing the SAP S4 Hana GUI ###
+try 
+{
+    Write-Log "Starting the install of the SAP S4 Hana GUI Package"		
+    Start-Process -FilePath "C:\ImageBuild\SAP_Hana_Client\SAP_Hana_Client.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the SAP S4 Hana GUI Package."		
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+  	write-log "Error installing the SAP S4 Hana GUI Package: $ErrorMessage"
+    Exit 42
+}
+
 
 # PowerShell script to create web shortcuts (.URL files) for Office Web Apps on the desktop for all users with custom icons, error handling, and logging
 
