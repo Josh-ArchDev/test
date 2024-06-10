@@ -92,7 +92,9 @@ foreach ($zipFile in $zipFiles) {
         
         # Log success message
         Write-Log "Extracted $($zipFile.Name) to $destination"
-    } catch {
+    } 
+    catch 
+    {
         # Log error message if extraction fails
         Write-Log "Failed to extract $($zipFile.Name): $_.exception.message"
     }
