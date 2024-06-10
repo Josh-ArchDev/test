@@ -241,6 +241,108 @@ catch
     Exit 42
 }
 
+#FileZilla
+
+try 
+{
+    Write-Log "Starting the install of the FileZilla Package"
+    Start-Process -FilePath "C:\ImageBuild\FileZilla\FileZilla.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the FileZilla Package"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error installing FileZilla: $ErrorMessage"
+    Exit 42
+}
+
+#WireShark
+
+try 
+{
+    Write-Log "Starting the install of the WireShark Package"
+    Start-Process -FilePath "C:\ImageBuild\Wire-Shark\Wire_Shark.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the WireShark Package"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error installing WireShark: $ErrorMessage"
+    Exit 42
+}
+
+#FireFox
+
+try 
+{
+    Write-Log "Starting the install of the FireFox Package"
+    Start-Process -FilePath "C:\ImageBuild\Firefox\Firefox Setup 126.0.1.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the VSCode Package"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error installing VSCodeUserSetup-x64-1.85.1: $ErrorMessage"
+    Exit 42
+}
+
+#nmap
+<#
+try 
+{
+    Write-Log "Starting the install of the nmap Package"
+    Start-Process -FilePath "C:\ImageBuild\nmap\nmap-7.95-setup.exe" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the nmap Package"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error installing nmap: $ErrorMessage"
+    Exit 42
+}
+#>
+
+#UMS
+<#
+try 
+{
+    Write-Log "Starting the install of the UMS Package"
+    Start-Process -FilePath "C:\ImageBuild\UMS\setup-igel-ums-windows_6.10.120.exe"  -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the UMS Package"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error installing UMS: $ErrorMessage"
+    Exit 42
+}
+#>
+
+#VMRC
+<#
+try 
+
+{
+
+    $INSTALLDIR = "C:\Program Files (x86)\VMware\VMware Remote Console"
+    Write-Log "Starting the install of the VMRC Package"
+    Start-Process -FilePath "C:\ImageBuild\VMRC\VMware-VMRC-12.0.5-22744838.exe" -ArgumentList "/s /v /qn EULAS_AGREED=1 INSTALLDIR='$INSTALLDIR' AUTOSOFTWAREUPDATE=0 DATACOLLECTION=0 /l c:\ImageBuild\VMRC-install.log"  -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the VMRC Package"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error installing VMRC: $ErrorMessage"
+    Exit 42
+}
+
+#>
 #Git
 
 try 
