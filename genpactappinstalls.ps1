@@ -404,3 +404,17 @@ catch
     write-log "Error creating a shortcut $ErrorMessage"
     Exit 42
 }
+# Installing CMTrace.exe
+try 
+{
+	write-log "Copying CMTrace to System32 directory"
+	Copy-Item "C:\ImageBuild\CMTrace.exe" -Recurse -Destination "C:\Windows\System32"
+	write-log "Successfully copied the CMTrace.exe to the System32 Directory"
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error copying CMTrace.exe: $ErrorMessage"
+    Exit 42
+}
