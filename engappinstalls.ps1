@@ -240,6 +240,24 @@ catch
    	write-log "Error installing VSCodeUserSetup-x64-1.85.1: $ErrorMessage"
     Exit 42
 }
+#Enable App-V
+
+try 
+{
+    Write-Log "Starting the enablement of App-V"
+    Enable-Appv 
+    Write-Log "Successfully Completed the enablement of App-V"
+}
+
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+   	write-log "Error enabling App-V: $ErrorMessage"
+    Exit 42
+}
+
+
+
 
 #FileZilla
 
@@ -772,6 +790,23 @@ catch
 {
 	$ErrorMessage = $_.Exception.message
    	write-log "Error installing the Sysinternals Suite of tools: $ErrorMessage"
+    Exit 42
+}
+
+# Remove Jave Automatic Updates Schedular
+try 
+{
+	write-log "Removing the Java Update Scheduler from startup"
+	$registryPath = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run"
+    $registryKey = "SunJavaUpdateSched"
+    Remove-ItemProperty -Path $registryPath -Name $registryKey
+	write-log "Successfully removed the Java Update Scheduler from startup"
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error removing the Java Update Scheduler from startup: $ErrorMessage"
     Exit 42
 }
 

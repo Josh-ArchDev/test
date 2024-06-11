@@ -418,3 +418,19 @@ catch
    	write-log "Error copying CMTrace.exe: $ErrorMessage"
     Exit 42
 }
+# Remove Jave Automatic Updates Schedular
+try 
+{
+	write-log "Removing the Java Update Scheduler from startup"
+	$registryPath = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run"
+    $registryKey = "SunJavaUpdateSched"
+    Remove-ItemProperty -Path $registryPath -Name $registryKey
+	write-log "Successfully removed the Java Update Scheduler from startup"
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error removing the Java Update Scheduler from startup: $ErrorMessage"
+    Exit 42
+}
