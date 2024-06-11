@@ -1,10 +1,10 @@
 #######################################################################################################################
 ###                                                                                                                 ###
-###    Script Name: engappinstalls.ps1                                                                             ###
-###    Script Function: This script is meant to be run within a Custom Image Template deployment within Azure       ###
-###                     Virtual Desktop. This script installs the required software for the Genpact EN Use case     ###
-###                     within Walmart.                                                                             ### 
-###                     from Azure Blob Storage.                                                                    ###
+###    Script Name: template_appinstalls.ps1                                                                        ###
+###    Script Function: This template is meant to allow teams to utilize this initial script to build a more        ###
+###                     complete set of software installations to be utilized within Azure Virtual Desktop custom   ###
+###                     image templates. Some initial software and base framework packages are included in this     ###
+###                     template that should be included with builds within the Walmart environment.                ###
 ###                                                                                                                 ###
 ###    Script Usage: This template script does not require any parameters at this time, but if required they can    ###
 ###                  be added and called as part of the custom image template process.                              ###
@@ -17,8 +17,9 @@
 
 
 # Set logging 
- 
-$LogFilePath = "C:\ImageBuild\engappinstalls.log"
+### Update the logfile name ###
+$LogFilePath = "C:\ImageBuild\XXX_appinstalls.log"
+### Logfile function ###
 function Write-Log
 {
 	param (
@@ -192,6 +193,7 @@ catch
     Exit 42
 }
 
+
 #Java1.8
 
 try 
@@ -209,21 +211,22 @@ catch
     Exit 42
 }
 
-#Notepad++ v7.7.1
-
- try 
+#Slack
+try 
 {
-    Write-Log "Starting the install of the Notepad++ Package"
-    Start-Process -FilePath "C:\ImageBuild\Notepad++_ver``[7.7.1``]\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Notepad++ Package"
+    Write-Log "Starting the install of the Slack Package"			
+    Start-Process -FilePath "C:\ImageBuild\Slack_4.36.136\slack-standalone-4.36.136.0.msi" -ArgumentList "/quiet" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Slack Package"
+
 }
 
 catch 
 {
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing Notepad++_ver[7.7.1]: $ErrorMessage"
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing Slack_4.36.136: $ErrorMessage"
     Exit 42
 }
+
 
 #VSCode
 
@@ -241,192 +244,27 @@ catch
     Exit 42
 }
 
-#FileZilla
+
+
+#ZoomVDI_5.16.24420
 
 try 
 {
-    Write-Log "Starting the install of the FileZilla Package"
-    Start-Process -FilePath "C:\ImageBuild\FileZilla\FileZilla.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the FileZilla Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing FileZilla: $ErrorMessage"
-    Exit 42
-}
-
-#WireShark
-
-try 
-{
-    Write-Log "Starting the install of the WireShark Package"
-    Start-Process -FilePath "C:\ImageBuild\Wire-Shark\Wire_Shark.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the WireShark Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing WireShark: $ErrorMessage"
-    Exit 42
-}
-
-#FireFox
-
-try 
-{
-    Write-Log "Starting the install of the FireFox Package"
-    Start-Process -FilePath "C:\ImageBuild\Firefox\Firefox Setup 126.0.1.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the VSCode Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing VSCodeUserSetup-x64-1.85.1: $ErrorMessage"
-    Exit 42
-}
-
-#nmap
-<#
-try 
-{
-    Write-Log "Starting the install of the nmap Package"
-    Start-Process -FilePath "C:\ImageBuild\nmap\nmap-7.95-setup.exe" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the nmap Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing nmap: $ErrorMessage"
-    Exit 42
-}
-#>
-
-#UMS
-<#
-try 
-{
-    Write-Log "Starting the install of the UMS Package"
-    Start-Process -FilePath "C:\ImageBuild\UMS\setup-igel-ums-windows_6.10.120.exe"  -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the UMS Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing UMS: $ErrorMessage"
-    Exit 42
-}
-#>
-
-#VMRC
-<#
-try 
-
-{
-
-    $INSTALLDIR = "C:\Program Files (x86)\VMware\VMware Remote Console"
-    Write-Log "Starting the install of the VMRC Package"
-    Start-Process -FilePath "C:\ImageBuild\VMRC\VMware-VMRC-12.0.5-22744838.exe" -ArgumentList "/s /v /qn EULAS_AGREED=1 INSTALLDIR='$INSTALLDIR' AUTOSOFTWAREUPDATE=0 DATACOLLECTION=0 /l c:\ImageBuild\VMRC-install.log"  -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the VMRC Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing VMRC: $ErrorMessage"
-    Exit 42
-}
-
-#>
-#Git
-
-try 
-{
-    Write-Log "Starting the install of the GIT Package"
-    Start-Process -FilePath "C:\ImageBuild\Git\Git-2.33.0-64-bit.exe" -ArgumentList "/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the GIT Package"
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing Git-2.33.0-64-bit: $ErrorMessage"
-    Exit 42
-}
-
- 
-#MicrosoftEdgeWebview2
-
-try 
-{
-	Write-Log "Starting the install of the Microsoft Edge WebView Package"
-	Start-Process -FilePath "C:\ImageBuild\EdgeWebview2\MicrosoftEdgeWebview2Setup.exe" -ArgumentList '/silent /install' -Wait -ErrorAction Stop
-	Write-Log "Successfully Completed the install of the Microsoft Edge WebView Package"
-
-}
-
-catch
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing MicrosoftEdgeWebview2: $ErrorMessage"
-	Exit 42
-}
-
- #PowerBI
-
-try 
-{
-    Write-Log "Starting the install of the Power BI Package"	
-    Start-Process -FilePath "C:\ImageBuild\PowerBI_ver2.121.762\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Power BI Package"	
-
-}
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing SSMS: $ErrorMessage"
-    Exit 42
-}
- 
-#VSCode
-
-try 
-{
-    Write-Log "Starting the install of the VSCode Package"
-    Start-Process -FilePath "C:\ImageBuild\VSCode\VSCodeUserSetup-x64-1.85.1.exe" -ArgumentList "/verysilent /suppressmsgboxes /mergetasks=!runcode" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the VSCode Package"
-}
-
-catch 
-{
-    $ErrorMessage = $_.Exception.message
-   	write-log "Error installing VSCodeUserSetup-x64-1.85.1: $ErrorMessage"
-    Exit 42
-}
-
-#Putty
-
-try {
-
-	Write-Log "Starting the install of the Putty Package"	
-    Start-Process -FilePath "C:\ImageBuild\Putty\Putty.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Putty Package"
+    
+    Write-Log "Starting the install of the Zoom VDI Package"
+    Start-Process -FilePath "C:\ImageBuild\ZoomVDI_ver5.16.24420\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Zoom VDI Package"
 
 }
 
 catch 
 {
 	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing 7-Zip: $ErrorMessage"
+   	write-log "Error installing ZoomVDI_5.16.24420: $ErrorMessage"
     Exit 42
 }
 
-#BogleFont
+#Boggle Fonts
 try 
 {
 	Write-Log "Starting the install of the Bogle Font Package"	
@@ -441,56 +279,6 @@ catch
    	write-log "Error installing BogleFont: $ErrorMessage"
 	Exit 42
 }
-
-#IntelliJ
-
-try 
-{
-    Write-Log "Starting the install of the InteliJ Package"
-	Start-Process -FilePath "C:\ImageBuild\IntelliJ_Idea\IntelliJ_IDEA.EXE" -ArgumentList "/S /NOREBOOT" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the InteliJ Package"
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing IntelliJ: $ErrorMessage"
-    Exit 42
-}
-
-#Azul-Zulu_JDK-17_ver17.42.19
-
-try 
-{
-    Write-Log "Starting the install of the Azul-Zulu JDK Package"
-	Start-Process -FilePath "C:\ImageBuild\Azul-Zulu_JDK-17_ver17.42.19\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Azul-Zulu JDK Package"
-
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing Azul-Zulu_JDK-17_ver17.42.19: $ErrorMessage"
-    Exit 42
-}
-
-#Powershell7.4.0
-
-try 
-{
-    Write-Log "Starting the install of the PowerShell 7 Package"
-    Start-Process -FilePath "C:\ImageBuild\Powershell7.4.0\PowerShell-7.4.0-win-x64.msi" -ArgumentList "/quiet" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the PowerShell 7 Package"
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing Powershell7.4.0: $ErrorMessage"
-    Exit 42
-}
-
 
 # PowerShell script to create web shortcuts (.URL files) for Office Web Apps on the desktop for all users with custom icons, error handling, and logging
 
@@ -589,7 +377,64 @@ catch
     write-log "Error creating a shortcut $ErrorMessage"
     Exit 42
 }
+#Copy FSLogix Rules
 
+try 
+{
+    Write-Log "Checking for the FSLogix Rules directory."
+    $rulesDirectory = 'C:\Program Files\FSLogix\Apps\Rules\Rules'
+    
+    # Check if the Rules directory exists, create it if it does not
+    if (-not (Test-Path -Path $rulesDirectory)) {
+        New-Item -Path $rulesDirectory -ItemType Directory
+        Write-Log "FSLogix Rules directory created."
+    }
+
+    Write-Log "Starting the copy of the FSLogix App Masking Rules" 
+    Copy-Item -Path C:\ImageBuild\FSLogixRules\* -Destination $rulesDirectory -Recurse
+    Write-Log "Successfully Completed the copy of the FSLogix App Masking Rules" 
+
+}
+catch 
+{
+    $ErrorMessage = $_.Exception.message
+    write-log "Error copying FSLogixRules: $ErrorMessage"
+    Exit 42
+}
+
+ 
+### Configuring Desktops Shortcuts ###
+try 
+{
+	# Define the path to the CSV file and the Public Desktop directory
+	$csvPath = "C:\ImageBuild\UtilityScripts\setdesktopshortcuts.csv" # Replace with the actual path to your CSV file
+	$publicDesktopPath = "C:\Users\Public\Desktop"
+
+	# Read the CSV file and create an array of filenames to keep
+	$filesToKeep = Import-Csv -Path $csvPath | ForEach-Object { $_.Filename }
+
+	# Get all the files in the Public Desktop directory
+	$filesInPublicDesktop = Get-ChildItem -Path $publicDesktopPath
+
+	# Start the logging process
+	Write-Log "Starting the cleanup of the Public Desktop directory."
+
+	foreach ($file in $filesInPublicDesktop) {
+    	# Check if the current file is not in the list of files to keep
+    	if ($file.Name -notin $filesToKeep) {
+        	# Delete the file
+        	Remove-Item -Path $file.FullName -Force
+        	Write-Log "Successfully Deleted file: $($file.Name)"
+    	}
+}
+	
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error cleaning up the desktop icons: $ErrorMessage"
+    Exit 42
+}
 ### Register DLL and Copy TeamsMeetingAdd-in ###
 try 
 {
@@ -616,83 +461,6 @@ catch
     Exit 42
 }
 
-#Node.js
-
-try 
-{
-    Write-Log "Starting the install of the Node.js Package"		
-    Start-Process -FilePath "C:\ImageBuild\Nodejs\node-v10.16.3-x64.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the Node.js Package"	
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing node-v10.16.3-x64: $ErrorMessage"
-    Exit 42
-}
-
-#VMWare DEM Management Console
-try 
-{
-    Write-Log "Starting the install of the VMWare DEM Management Console Package"		
-    Start-Process -FilePath "C:\ImageBuild\DEM\VMware Dynamic Environment Manager 9.11 x64.msi" -ArgumentList "/qn INSTALLDIR='C:\Program Files\Immidio\Flex Profiles\' ADDLOCAL='FlexManagementConsole' /l* InstallDEM.log" -Wait -ErrorAction Stop
-    Write-Log "Successfully Completed the install of the VMWare DEM Management Console Package"	
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing the VMWare DEM Management Console Package: $ErrorMessage"
-    Exit 42
-}
-#Installing Sysinternals Suite
-try 
-{
-    # Define the source and destination directories
-    $sourcePath = "C:\ImageBuild\SysinternalsSuite"
-    $destinationPath = "C:\Windows\System32"
-    $SysinternalsPath = $destinationPath + "\SysinternalsSuite"
-	write-log "Copying Sysinternals Suite Files to C:\Windows\System32\SysinternalsSuite directory"
-    # Copy the Sysinternals Suite directory to the destination
-    Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
-
-    # Verify the Sysinternals Suite directory is copied to C:\Windows\System32
-    if (Test-Path -Path $SysinternalsPath) 
-    {
-        Write-Log "The Sysinternals Suite has been copied to $destinationPath."
-    } 
-    else 
-    {
-        Write-Log "Copy failed: The Sysinternals Suite has not been copied to $destinationPath."
-    }
-
-	# Get the current PATH environment variable value
-    $currentPath = [System.Environment]::GetEnvironmentVariable('PATH', [System.EnvironmentVariableTarget]::Machine)
-
-    # Check if the Sysinternals Suite directory is already in the PATH
-    $Paths = $currentPath.Split(";")
-    if ($Paths -notcontains $SysinternalsPath) 
-    {
-        # Add the Sysinternals Suite directory to the PATH environment variable
-        $newPath = $currentPath + ";" + $SysinternalsPath
-        [System.Environment]::SetEnvironmentVariable('PATH', $newPath, [System.EnvironmentVariableTarget]::Machine)
-        Write-Log "The Sysinternals Suite directory has been added to the system PATH."
-    } 
-    else 
-    {
-        Write-Log "The Sysinternals Suite directory is already in the system PATH."
-    }
-
-}
-
-catch 
-{
-	$ErrorMessage = $_.Exception.message
-   	write-log "Error installing the Sysinternals Suite of tools: $ErrorMessage"
-    Exit 42
-}
-
 
 # Installing CMTrace.exe
 try 
@@ -708,3 +476,5 @@ catch
    	write-log "Error copying CMTrace.exe: $ErrorMessage"
     Exit 42
 }
+
+
