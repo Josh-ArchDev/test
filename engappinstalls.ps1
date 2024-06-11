@@ -646,6 +646,88 @@ catch
    	write-log "Error installing the VMWare DEM Management Console Package: $ErrorMessage"
     Exit 42
 }
+
+#VMWare HelpDesk Agent
+
+try 
+{
+    Write-Log "Starting the install of the VMWare HelpDesk Agent Package"
+    Start-Process -FilePath "C:\ImageBuild\HelpdeskAgent\VMwareHorizonHelpDeskAgentMSI-1.5.0.11.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop		
+    Write-Log "Successfully Completed the install of the VMWare HelpDesk Agent Package Package"	
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the VMWare HelpDesk Agent Package: $ErrorMessage"
+    Exit 42
+}
+
+#Bomgar
+
+try 
+{
+    Write-Log "Starting the install of the Bomgar Package"
+    Start-Process -FilePath "C:\ImageBuild\Bomgar\bomgar-rep-win64-installer.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Bomgar Package"	
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the Bomgar Package: $ErrorMessage"
+    Exit 42
+}
+
+#Remote Desktop Connection Manager
+
+try 
+{
+    Write-Log "Starting the install of the Remote Desktop Connection Manager Package"
+    Start-Process -FilePath "C:\ImageBuild\RDCMan\RDCMan.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Remote Desktop Connection Manager Package"	
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the Remote Desktop Connection Manager Package: $ErrorMessage"
+    Exit 42
+}
+
+#Local Administrator Password Solution
+
+try 
+{
+    Write-Log "Starting the install of the LAPS Package"
+    Start-Process -FilePath "C:\ImageBuild\LAPS\LAPS.x64.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the LAPS Package"	
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the LAPS Package: $ErrorMessage"
+    Exit 42
+}
+
+#Remote Server Administration Tools (RSAT)
+
+try 
+{
+    Write-Log "Starting the install of the RSAT Package"
+    Add-WindowsCapability -Name "RSAT.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0" -Online
+    Write-Log "Successfully Completed the install of the RSAT Package"	
+}
+
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the RSAT Package: $ErrorMessage"
+    Exit 42
+}
+
+
 #Installing Sysinternals Suite
 try 
 {
