@@ -603,19 +603,22 @@ catch
    	write-log "Error copying CMTrace.exe: $ErrorMessage"
     Exit 42
 }
-# Remove Jave Automatic Updates Schedular
+# Copy MDE Onboarding File to the C:\Windows\Temp directory where a Scheduled Task will call it after domain join
 try 
 {
-	write-log "Removing the Java Update Scheduler from startup"
-	$registryPath = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run"
-    $registryKey = "SunJavaUpdateSched"
-    Remove-ItemProperty -Path $registryPath -Name $registryKey
-	write-log "Successfully removed the Java Update Scheduler from startup"
+    $scriptsourcePath = "C:\ImageBuild\UtilityScripts\WindowsDefenderATPLocalOnboardingScript.cmd"
+	$scriptdestinationPath = "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
+	Write-Log "Starting the copy of the WindowsDefenderATPLocalOnboardingScript.cmd file"
+	if (Test-Path -Path $scriptsourcePath) 
+	{
+		# Copy the file to the destination
+		Copy-Item -Path $scriptsourcePath -Destination $scriptdestinationPath
+		Write-Log "The WindowsDefenderATPLocalOnboardingScript.cmd File copied successfully."
+	}
 }
-
-catch 
+Catch
 {
 	$ErrorMessage = $_.Exception.message
-   	write-log "Error removing the Java Update Scheduler from startup: $ErrorMessage"
+   	write-log "Error copying the MDE Onboarding script to the C:\Windows\Temp : $ErrorMessage"
     Exit 42
 }
