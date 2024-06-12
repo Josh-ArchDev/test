@@ -424,6 +424,7 @@ try
 {
     $scriptsourcePath = "C:\ImageBuild\UtilityScripts\WindowsDefenderATPLocalOnboardingScript.cmd"
 	$scriptdestinationPath = "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
+	$STRemovalScriptPath = "C:\ImageBuild\UtilityScripts\Remove-MDEOnboardingST.ps1"
 	Write-Log "Starting the copy of the WindowsDefenderATPLocalOnboardingScript.cmd file"
 	if (Test-Path -Path $scriptsourcePath) 
 	{
@@ -431,6 +432,14 @@ try
 		Copy-Item -Path $scriptsourcePath -Destination $scriptdestinationPath
 		Write-Log "The WindowsDefenderATPLocalOnboardingScript.cmd File copied successfully."
 	}
+	Write-Log "Starting the copy of the Remove-MDEOnboardingST.ps1 file"
+	if (Test-Path -Path $STRemovalScriptPath) 
+	{
+		# Copy the file to the destination
+		Copy-Item -Path $STRemovalScriptPath -Destination "C:\Windows\Temp\Remove-MDEOnboardingST.ps1"
+		Write-Log "The Remove-MDEOnboardingST.ps1 File copied successfully."
+	}
+	
 }
 Catch
 {
