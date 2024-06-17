@@ -12,7 +12,7 @@
 #######################################################################################################################
 
 # Define the log file path
-$LogFilePath = "C:\\Windows\\Temp\\Remove-MDEOnboardingST.log"
+$LogFilePath = "C:\\Windows\\Temp\\MDE-OnboardingSTScript.log"
 
 # Write-Log function definition
 function Write-Log {

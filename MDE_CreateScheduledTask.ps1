@@ -50,7 +50,7 @@ try
 	$STRemovalScriptPath = "C:\ImageBuild\UtilityScripts\Remove-MDEOnboardingST.ps1"
 	$STScript = "C:\ImageBuild\UtilityScripts\MDE-OnboardingSTScript.ps1"
 	Write-Log "Starting the copy of the WindowsDefenderATPLocalOnboardingScript.cmd file"
-	if (Test-Path -Path $scriptsourcePath) 
+	if (Test-Path -Path $OnboardingscriptsourcePath) 
 	{
 		# Copy the file to the destination
 		Copy-Item -Path $OnboardingscriptsourcePath -Destination $OnboardingscriptdestinationPath
@@ -98,6 +98,6 @@ try
 catch 
 {
 	$ErrorMessage = $_.Exception.message
-   	write-log "Error copying the MoveFSLogixRules.ps1 file or Error creating the MoveFSLogixRules Scheduled Task: $ErrorMessage"
+   	write-log "Error creating the OnboardMDE Scheduled Task: $ErrorMessage"
     Exit 42
 }
