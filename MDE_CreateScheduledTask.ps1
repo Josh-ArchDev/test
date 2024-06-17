@@ -42,17 +42,18 @@ function Write-Log
 	}
 }
 
-#Copy MoveFSLogixRules.ps1 to C:\Windows\Temp
+#Copy MDE Onboarding file to C:\Windows\Temp
 try 
 {
-    $scriptsourcePath = "C:\ImageBuild\UtilityScripts\WindowsDefenderATPLocalOnboardingScript.cmd"
-	$scriptdestinationPath = "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
+    $OnboardingscriptsourcePath = "C:\ImageBuild\UtilityScripts\WindowsDefenderATPLocalOnboardingScript.cmd"
+	$OnboardingscriptdestinationPath = "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
 	$STRemovalScriptPath = "C:\ImageBuild\UtilityScripts\Remove-MDEOnboardingST.ps1"
+	$STScript = "C:\ImageBuild\UtilityScripts\MDE-OnboardingSTScript.ps1"
 	Write-Log "Starting the copy of the WindowsDefenderATPLocalOnboardingScript.cmd file"
 	if (Test-Path -Path $scriptsourcePath) 
 	{
 		# Copy the file to the destination
-		Copy-Item -Path $scriptsourcePath -Destination $scriptdestinationPath
+		Copy-Item -Path $OnboardingscriptsourcePath -Destination $OnboardingscriptdestinationPath
 		Write-Log "The WindowsDefenderATPLocalOnboardingScript.cmd File copied successfully."
 	}
 	Write-Log "Starting the copy of the Remove-MDEOnboardingST.ps1 file"
@@ -62,7 +63,13 @@ try
 		Copy-Item -Path $STRemovalScriptPath -Destination "C:\Windows\Temp\Remove-MDEOnboardingST.ps1"
 		Write-Log "The Remove-MDEOnboardingST.ps1 File copied successfully."
 	}
-	
+	Write-Log "Starting copy of MDE-OnboardingSTScript.ps1 file to C:\Windows\Temp directory."
+	if (Test-Path -Path $STScript) 
+	{
+		# Copy the file to the destination
+		Copy-Item -Path $STScript -Destination "C:\Windows\Temp\MDE-OnboardingSTScript.ps1"
+		Write-Log "The MDE-OnboardingSTScript.ps1 File copied successfully."
+	}
 
     Write-Log "Starting the creation of the OnboardMDE Scheduled Task."
 	# Create a trigger that starts the task at system startup
@@ -70,9 +77,13 @@ try
 	$STSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -DontStopOnIdleEnd -StartWhenAvailable -Hidden -Compatibility Win8
 
 	# Create an action that specifies calling powershell.exe with parameters to run your script
-	$ScriptPath = "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
-	$Action = New-ScheduledTaskAction -Execute "$ScriptPath" -WorkingDirectory "C:\Windows\Temp"
+	$PSArgs = "-NoProfile -ExecutionPolicy Bypass -File"
+	$ScriptPath = "C:\Windows\Temp\MDE-OnboardingSTScript.ps1"
+	$ScriptArgs = "$PSArgs" + " " + "$ScriptPath" 
+	$Action = New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument "$ScriptArgs" -WorkingDirectory "C:\Windows\Temp"
 
+	
+	
 	# Create the principal to run the task as Local System with highest privileges
 	$Principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -RunLevel Highest
 
