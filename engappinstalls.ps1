@@ -209,6 +209,21 @@ catch
     Exit 42
 }
 
+#Web RTC Redirector
+try 
+{
+    Write-Log "Starting the install of the Web RTC Redirector Service to support Teams VDI Optimizations"
+    Start-Process -FilePath "C:\ImageBuild\Frameworks\MsRdcWebRTCSvc_HostSetup_1.50.2402.29001_x64.msi" -ArgumentList "/quiet /norestart" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the Web RTC Redirector Service Package"
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing Web RTC Redirector Service Package: $ErrorMessage"
+    Exit 42
+}
+
+
 #Notepad++ v7.7.1
 
  try 
