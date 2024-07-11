@@ -868,3 +868,45 @@ Catch
    	write-log "Error copying the MDE Onboarding script to the C:\Windows\Temp : $ErrorMessage"
     Exit 42
 }
+### Remove New Outlook ###
+try 
+{
+	write-log "Preparing to remove the New Outlook AppX package"
+	Get-AppxPackage -AllUsers | Where-Object {$_.Name -Like '*OutlookForWindows*'} | Remove-AppxPackage -AllUsers -ErrorAction Continue
+	Write-Log "Successfully removed the New Outlook AppX Package"
+
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error removing the New Outlook package from the image : $ErrorMessage"
+    Exit 42
+}
+### Install NotePad ++ ###
+try 
+{
+	write-log "Preparing to Install the NotePad ++ Package"
+	Start-Process -FilePath C:\ImageBuild\npp.8.6.7\npp.8.6.7.Installer.x64.exe -ArgumentList '/S' -Wait -ErrorAction Stop
+	Write-Log "Successfully installed the Notepad++ Package"
+
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the Notepad++ package: $ErrorMessage"
+    Exit 42
+}
+### Install PowerShell ###
+try 
+{
+	write-log "Preparing to install the Updated PowerShell Package"
+	Start-Process -FilePath C:\ImageBuild\PowerShell\PowerShell-7.4.3-win-x64.msi -ArgumentList '/quiet /norestart' -Wait -ErrorAction Stop
+	Write-Log "Successfully installed the Updated PowerShell Package"
+
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing the Updated PowerShell Package: $ErrorMessage"
+    Exit 42
+}

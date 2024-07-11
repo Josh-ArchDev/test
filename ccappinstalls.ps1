@@ -646,3 +646,17 @@ Catch
    	write-log "Error copying the MDE Onboarding script to the C:\Windows\Temp : $ErrorMessage"
     Exit 42
 }
+### Remove New Outlook ###
+try 
+{
+	write-log "Preparing to remove the New Outlook AppX package"
+	Get-AppxPackage -AllUsers | Where-Object {$_.Name -Like '*OutlookForWindows*'} | Remove-AppxPackage -AllUsers -ErrorAction Continue
+	Write-Log "Successfully removed the New Outlook AppX Package"
+
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error removing the New Outlook package from the image : $ErrorMessage"
+    Exit 42
+}
