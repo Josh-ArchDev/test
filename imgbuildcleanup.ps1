@@ -12,6 +12,8 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 # Set Log File Path
 $LogFilePath = "C:\Windows\Temp\imgbuildcleanup.log"

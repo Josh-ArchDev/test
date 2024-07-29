@@ -15,6 +15,9 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
+
 # Set the Log File Path
 $LogFilePath = "C:\ImageBuild\vstd_download.log"
 

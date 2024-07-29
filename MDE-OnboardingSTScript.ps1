@@ -10,6 +10,8 @@
 ###    Script Version: 1.0                                                                                          ###
 ###                                                                                                                 ###
 #######################################################################################################################
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 # Define the log file path
 $LogFilePath = "C:\\Windows\\Temp\\MDE-OnboardingSTScript.log"

@@ -13,6 +13,7 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
 
 
 
@@ -46,6 +47,7 @@ function Write-Log
 		write-host "Having issues creating or adding information to the logfile at $LogFilePath"
 	}
 }
+
 
 #ForcePoint
 

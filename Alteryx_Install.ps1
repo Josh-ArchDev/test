@@ -13,7 +13,8 @@
 ###                                                                                                                 ###
 #######################################################################################################################
 
-
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+S
 
 
 $LogFilePath = "C:\ImageBuild\Alteryx_Install.log"

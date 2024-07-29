@@ -14,6 +14,8 @@
 ###    Script Version: 1.0                                                                                          ###
 ###                                                                                                                 ###
 #######################################################################################################################
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 # Set the Log File Path
 $LogFilePath = "C:\ImageBuild\download.log"

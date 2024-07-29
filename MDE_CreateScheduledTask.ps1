@@ -10,6 +10,8 @@
 ###    Script Version: 1.0                                                                                          ###
 ###                                                                                                                 ###
 #######################################################################################################################
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 # Logifle Path
 $LogFilePath = "C:\ImageBuild\MDE_CreateScheduledTask.log"
