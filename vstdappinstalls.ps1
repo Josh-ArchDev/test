@@ -207,7 +207,7 @@ catch
 }
 
 #NewTeams
-<# 
+
 try 
 {
     Write-Log "Starting the install of the New Teams Client Package"	
@@ -222,7 +222,55 @@ catch
     write-log "Error installing NewTeams: $ErrorMessage"
 	Exit 42
 }
- #>
+
+### Disable Teams Auto Update Feature ###
+try 
+{
+	Write-Log "Creating a registry entry to disable autom updates within the Teams client"
+	# PowerShell script to disable auto-updates in Microsoft Teams
+	$registryPath = "HKLM:\\SOFTWARE\\Microsoft\\Teams"
+	$registryName = "disableAutoUpdate"
+	$registryValue = 1
+
+	# Check if the registry path exists, if not, create it
+	if (-not (Test-Path $registryPath)) 
+	{
+    	New-Item -Path $registryPath -Force
+	}
+
+	# Set the registry value
+	Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue
+
+	# Verify the registry value
+	if ((Get-ItemProperty -Path $registryPath).$registryName -eq $registryValue) 
+	{
+    	Write-Host "Registry key has been set successfully."
+	} 
+		
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+    write-log "Error disabling Teams automatic update processes: $ErrorMessage"
+	Exit 42
+}
+
+
+### .Net 5.0 Install ###
+
+try 
+{
+    Write-Log "Starting the install of the .Net 5.0 Package"
+    Start-Process -FilePath "C:\ImageBuild\dotnet5.0.12\windowsdesktop-runtime-5.0.12-win-x64.exe" -ArgumentList "/install /quiet /norestart" -Wait -ErrorAction Stop
+    Write-Log "Successfully Completed the install of the .Net 5.0 Package"
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+   	write-log "Error installing DAX_Studio_ver3.0.8.945: $ErrorMessage"
+    Exit 42
+}
+
 
 #Java1.8
 
@@ -452,13 +500,13 @@ catch
     Exit 42
 }
  #>
-#ZoomVDI_5.16.24420
+#ZoomVDI_5.17.24920
 
 try 
 {
     
     Write-Log "Starting the install of the Zoom VDI Package"
-    Start-Process -FilePath "C:\ImageBuild\ZoomVDI_ver5.16.24420\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
+    Start-Process -FilePath "C:\ImageBuild\ZoomVDI_ver5.17.24920\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
     Write-Log "Successfully Completed the install of the Zoom VDI Package"
 
 }

@@ -215,13 +215,14 @@ catch
    	write-log "Error installing Chromev120: $ErrorMessage"
     Exit 42
 }
-#ZoomVDI_5.16.24420
+
+#ZoomVDI_5.17.24920
 
 try 
 {
     
     Write-Log "Starting the install of the Zoom VDI Package"
-    Start-Process -FilePath "C:\ImageBuild\ZoomVDI_ver5.16.24420\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
+    Start-Process -FilePath "C:\ImageBuild\ZoomVDI_ver5.17.24920\Deploy-Application.exe" -ArgumentList "Install NonInteractive" -Wait -ErrorAction Stop
     Write-Log "Successfully Completed the install of the Zoom VDI Package"
 
 }
@@ -232,7 +233,7 @@ catch
    	write-log "Error installing ZoomVDI_5.16.24420: $ErrorMessage"
     Exit 42
 }
-	
+
 #RightNowService
 
 try 
