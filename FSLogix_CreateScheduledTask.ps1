@@ -10,7 +10,7 @@
 ###    Script Version: 1.0                                                                                          ###
 ###                                                                                                                 ###
 #######################################################################################################################
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 
 # Logifle Path
@@ -56,7 +56,18 @@ try
 		Copy-Item -Path $scriptsourcePath -Destination $scriptdestinationPath
 		Write-Log "The MoveFSLogixRules.ps1 File copied successfully."
 	}
-	
+	# Unblock Files for use in the scheduled task.
+	Write-Log "Unblocking script files to be run from the scheduled task"
+	$filesToUnblock = @(
+		"C:\Windows\Temp\MoveFSLogixRules.ps1"
+	)
+
+	foreach ($file in $filesToUnblock) 
+	{
+    	Unblock-File -Path $file
+	}
+	Write-Log "Successfully unblocked the following files $filesToUnblock"	
+
     Write-Log "Starting the creation of the MoveFSLogixRules Scheduled Task."
 	# Create a trigger that starts the task at system startup
 	$Trigger = New-ScheduledTaskTrigger -AtStartup

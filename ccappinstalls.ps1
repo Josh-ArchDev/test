@@ -169,7 +169,7 @@ catch
 
 
 #NewTeams
-<# 
+
 try 
 {
     Write-Log "Starting the install of the New Teams Client Package"	
@@ -184,7 +184,39 @@ catch
     write-log "Error installing NewTeams: $ErrorMessage"
 	Exit 42
 }
- #>
+ 
+### Disable Teams Auto Update Feature ###
+try 
+{
+	Write-Log "Creating a registry entry to disable autom updates within the Teams client"
+	# PowerShell script to disable auto-updates in Microsoft Teams
+	$registryPath = "HKLM:\\SOFTWARE\\Microsoft\\Teams"
+	$registryName = "disableAutoUpdate"
+	$registryValue = 1
+
+	# Check if the registry path exists, if not, create it
+	if (-not (Test-Path $registryPath)) 
+	{
+    	New-Item -Path $registryPath -Force
+	}
+
+	# Set the registry value
+	Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue
+
+	# Verify the registry value
+	if ((Get-ItemProperty -Path $registryPath).$registryName -eq $registryValue) 
+	{
+    	Write-Host "Registry key has been set successfully."
+	} 
+		
+}
+catch 
+{
+	$ErrorMessage = $_.Exception.message
+    write-log "Error disabling Teams automatic update processes: $ErrorMessage"
+	Exit 42
+}
+
 #Reflection MultiHost
 
 try 

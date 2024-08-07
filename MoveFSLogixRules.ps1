@@ -4,7 +4,7 @@
 ### our AVD templates.                                                                   ###
 ###                                                                                      ###
 ############################################################################################
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 
 # Logifle Path

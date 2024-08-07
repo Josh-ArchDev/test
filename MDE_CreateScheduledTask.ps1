@@ -10,7 +10,7 @@
 ###    Script Version: 1.0                                                                                          ###
 ###                                                                                                                 ###
 #######################################################################################################################
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 
 # Logifle Path
@@ -72,6 +72,19 @@ try
 		Copy-Item -Path $STScript -Destination "C:\Windows\Temp\MDE-OnboardingSTScript.ps1"
 		Write-Log "The MDE-OnboardingSTScript.ps1 File copied successfully."
 	}
+	# Unblock script files
+	Write-Log "Preparing to unblock local scripts to be run with the scheduled tasks" 
+	$filesToUnblock = @(
+    "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd",
+    "C:\Windows\Temp\MDE-OnboardingSTScript.ps1",
+    "C:\Windows\Temp\Remove-MDEOnboardingST.ps1"
+	)
+
+	foreach ($file in $filesToUnblock) 
+	{
+    	Unblock-File -Path $file
+	}
+	Write-Log "Successfully Unblocked the following scripts $filesToUnblock"
 
     Write-Log "Starting the creation of the OnboardMDE Scheduled Task."
 	# Create a trigger that starts the task at system startup

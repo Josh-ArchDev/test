@@ -10,8 +10,6 @@
 ###    Script Version: 1.0                                                                                          ###
 ###                                                                                                                 ###
 #######################################################################################################################
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
-
 
 # Define the log file path
 $LogFilePath = "C:\\Windows\\Temp\\MDE-OnboardingSTScript.log"
@@ -53,7 +51,7 @@ try
         Write-Log "The machine is part of the homeoffice.wal-mart.com domain."
         # Run the batch file if the machine is in the domain
         Write-Log "Running the batch file: C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd"
-        Start-Process "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd" -WorkingDirectory "C:\Windows\Temp" -Wait 
+        Start-Process "C:\Windows\Temp\WindowsDefenderATPLocalOnboardingScript.cmd" -WorkingDirectory "C:\Windows\Temp" -Wait -Force
         Write-Log "Batch file executed successfully."
     } 
     else 
